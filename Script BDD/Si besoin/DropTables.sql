@@ -1,0 +1,25 @@
+--Si besoin de tout supprimer pour recréer les tables
+
+ALTER TABLE RETRAITS
+DROP CONSTRAINT retraits_articles_vendus_fk
+
+ALTER TABLE ENCHERES
+DROP encheres_utilisateur_fk
+
+ALTER TABLE ENCHERES
+DROP encheres_articles_vendus_fk
+
+ALTER TABLE ARTICLES_VENDUS
+DROP articles_vendus_categories_fk
+
+ALTER TABLE ARTICLES_VENDUS
+DROP ventes_vendeur_fk
+
+ALTER TABLE ARTICLES_VENDUS
+DROP encheres_acheteur_fk
+
+DROP TABLE ARTICLES_VENDUS
+DROP TABLE UTILISATEURS
+DROP TABLE CATEGORIES
+DROP TABLE ENCHERES
+DROP TABLE RETRAITS
