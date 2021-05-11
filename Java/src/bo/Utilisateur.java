@@ -8,22 +8,27 @@ public class Utilisateur {
 	
 	//Constructeurs
 	public Utilisateur(String pseudo, String nom, String prenom, String email,String telephone, String rue, int codePostal,
-			String ville, String motDePasse, boolean administrateur) {
+			String ville, String motDePasse) {
 		this.pseudo = pseudo;	
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
-		this.setTelephone(telephone);
+		this.telephone = telephone;
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
-		this.administrateur = administrateur;
+	}
+	
+	public Utilisateur(String pseudo, String email) {
+		this.pseudo = pseudo;	
+		this.email = email;
 	}
 	
 	public Utilisateur() {
 		
 	}
+	
 	//Getters et Setters
 	public int getNoUtilisateur() {
 		return noUtilisateur;
