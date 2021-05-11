@@ -5,6 +5,7 @@ public class DAOFactory {
 		return (ConnectionUtilisateur) new ConnectionUtilisateurJdbcImpl();
 	}
 
-	public static NouvelleVenteDAO getRepasDAO() {
+	public static NouvelleVenteDAO getArticleDAO() {
 		return new NouvelleVenteDAOJdbcImpl();
 	}
+}

@@ -5,6 +5,7 @@ import java.util.Date;
 import bo.Article;
 import bo.Categorie;
 import bo.Retrait;
+import dal.DAOFactory;
 import dal.NouvelleVenteDAO;
 
 public class NouvelleVenteManager {
@@ -15,7 +16,6 @@ public class NouvelleVenteManager {
 		nouvelleVenteDAO = DAOFactory.getArticleDAO();
 	}
 
-}
 
 /* Ajout d'un nouvel article en vente */
 public Article ajouterArticle(String nomArticle, String description, int miseAPrix, Date dateDebut, Date dateFin) {
@@ -48,4 +48,5 @@ public Retrait ajouterRetrait(String rueRetrait, int codePostalRetrait, String v
 	retrait.setRueRetrait(rueRetrait);
 	retrait.setCodePostalRetrait(codePostalRetrait);
 	retrait.setVilleRetrait(villeRetrait);
+	}
 }
