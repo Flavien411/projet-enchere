@@ -17,6 +17,10 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 
 	}
+	public Article() {
+
+
+	}
 	
 	//Getters et Setters
 	public int getNoArticle() {

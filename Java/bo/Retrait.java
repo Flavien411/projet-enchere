@@ -11,6 +11,10 @@ public class Retrait {
 		this.villeRetrait = villeRetrait;
 	}
 	
+	public Retrait() {
+
+	}
+	
 	//Getters et Setters
 	public String getRueRetrait() {
 		return rueRetrait;

@@ -6,7 +6,7 @@ public class Utilisateur {
 	private String pseudo,nom,prenom,email,rue,ville,motDePasse;
 	private boolean administrateur;
 	
-	//Constructeur
+	//Constructeurs
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue, int codePostal,
 			String ville, String motDePasse, boolean administrateur) {
 		this.pseudo = pseudo;	
@@ -19,7 +19,10 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.administrateur = administrateur;
 	}
-
+	
+	public Utilisateur() {
+		
+	}
 	//Getters et Setters
 	public int getNoUtilisateur() {
 		return noUtilisateur;

@@ -12,7 +12,10 @@ public class Enchere {
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 	}
+	
+	public Enchere() {
 
+	}
 	//Getters et Setters
 	public Date getDateEnchere() {
 		return dateEnchere;

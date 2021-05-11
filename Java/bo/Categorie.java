@@ -9,6 +9,9 @@ public class Categorie {
 	public Categorie(String libelle) {
 		this.libelle = libelle;
 	}
+	
+	public Categorie() {
+	}
 
 	//Getters et Setters
 	public int getNoCategorie() {
