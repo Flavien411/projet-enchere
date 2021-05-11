@@ -3,16 +3,17 @@ package bo;
 public class Utilisateur {
 	
 	private int noUtilisateur,codePostal,credit;
-	private String pseudo,nom,prenom,email,rue,ville,motDePasse;
+	private String pseudo,nom,prenom,email,rue,ville,motDePasse,telephone;
 	private boolean administrateur;
 	
 	//Constructeurs
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue, int codePostal,
+	public Utilisateur(String pseudo, String nom, String prenom, String email,String telephone, String rue, int codePostal,
 			String ville, String motDePasse, boolean administrateur) {
 		this.pseudo = pseudo;	
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
+		this.setTelephone(telephone);
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
@@ -111,6 +112,15 @@ public class Utilisateur {
 	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
+	
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	
 	
 	
 }
