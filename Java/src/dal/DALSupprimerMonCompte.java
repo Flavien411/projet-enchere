@@ -1,16 +1,8 @@
-package dal;
-
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import bo.Utilisateur;
-
-import java.sql.Driver;
-import connectionBDD.JdbcTools;
+import Java.src.connectionBDD.JdbcTools;
 
 public class DALSupprimerMonCompte {
 	
@@ -30,15 +22,16 @@ public class DALSupprimerMonCompte {
 			
 			Statement statement = connection.createStatement();
 			
-			String delete = "DELETE FROM utilisateur WHERE no_utilisateur = " + String.parseInt(utilisateur.getNoUtilisateur());
+			String delete = "DELETE FROM utilisateur WHERE no_utilisateur = " + String.valueOf(utilisateur.getNoUtilisateur());
 			
 			int i = statement.executeUpdate(delete);
 			
-			//Renvoyer si le compte de l'utilisateur a bien été supprimé
+			//Renvoyer true si le compte de l'utilisateur a bien été supprimé ou false sinon
 			return i == 1;
 			
 		}catch(SQLException e){
 			e.printStackTrace();
+			return false;
 		}
 	}
 
