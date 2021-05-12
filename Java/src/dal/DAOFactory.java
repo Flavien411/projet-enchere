@@ -5,7 +5,11 @@ public class DAOFactory {
 		return (ConnectionUtilisateur) new ConnectionUtilisateurJdbcImpl();
 	}
 
-	public static NouvelleVenteDAO getArticleDAO() {
+	public static NouvelleVenteDAO getNouvelleVenteDAO() {
 		return new NouvelleVenteDAOJdbcImpl();
 	}
+	
+	/*public static DetailVenteDAO getDetailVenteDAO() {
+		return new DetailVenteDAOJdbcImpl();
+	}*/
 }

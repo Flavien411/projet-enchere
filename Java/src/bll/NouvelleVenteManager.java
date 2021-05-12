@@ -13,7 +13,7 @@ public class NouvelleVenteManager {
 
 	public NouvelleVenteManager() {
 		// Instancier le Data Access Object
-		nouvelleVenteDAO = DAOFactory.getArticleDAO();
+		nouvelleVenteDAO = DAOFactory.getNouvelleVenteDAO();
 	}
 
 	/* Ajout d'un nouvel article en vente */
