@@ -1,11 +1,12 @@
 package dal;
 public class DAOFactory {
-	public static ConnectionUtilisateur getUtilisateurDAO()
+	public static GestionUtilisateur getUtilisateurDAO()
 	{
-		return (ConnectionUtilisateur) new ConnectionUtilisateurJdbcImpl();
+		return new GestionUtilisateurJdbcImpl();
 	}
 
-	public static NouvelleVenteDAO getArticleDAO() {
+	public static NouvelleVenteDAO getArticleDAO() 
+	{
 		return new NouvelleVenteDAOJdbcImpl();
 	}
 }
