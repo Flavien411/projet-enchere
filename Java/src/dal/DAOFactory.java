@@ -5,8 +5,11 @@ public class DAOFactory {
 		return new GestionUtilisateurJdbcImpl();
 	}
 
-	public static NouvelleVenteDAO getArticleDAO() 
-	{
+	public static NouvelleVenteDAO getNouvelleVenteDAO() {
 		return new NouvelleVenteDAOJdbcImpl();
 	}
+	
+	/*public static DetailVenteDAO getDetailVenteDAO() {
+		return new DetailVenteDAOJdbcImpl();
+	}*/
 }
