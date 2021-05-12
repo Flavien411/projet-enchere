@@ -2,6 +2,7 @@
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import Java.src.connectionBDD.JdbcTools;
 
 public class DALSupprimerMonCompte {
 	
@@ -15,7 +16,7 @@ public class DALSupprimerMonCompte {
 	
 	
 	public boolean supprimerCompte(Utilisateur utilisateur) {
-		Connection connection = ConnectionDB.getConnection();
+		Connection connection = JdbcTools.getConnection();
 		
 		try {
 			
