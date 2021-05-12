@@ -26,7 +26,7 @@ public class DALSupprimerMonCompte {
 			
 			int i = statement.executeUpdate(delete);
 			
-			//Renvoyer si le compte de l'utilisateur a bien été supprimé
+			//Renvoyer true si le compte de l'utilisateur a bien été supprimé ou false sinon
 			return i == 1;
 			
 		}catch(SQLException e){
