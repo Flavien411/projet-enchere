@@ -18,22 +18,22 @@ public class GestionUtilisateurBLL {
 	}
 	
 	//Methode gerant la connection d'un utilisateur
-	public void gestionUtilisateur(Utilisateur connection) {
+	public void gestionUtilisateur(String login,String motDePasse) {
 		
 		//TEMPORAIRE TODO: recupérer les info de l'interface graphique
 		Utilisateur utilisateur = new Utilisateur();
-		/*Utilisateur connection = new Utilisateur();
-		*connection.setPeudo(TODO : info de l'interface graphique);
-		*connection.setMotDePasse(TODO : info de l'interface graphique);
-		*/
-		int pos = connection.getPseudo().indexOf("@");
+		Utilisateur connection = new Utilisateur();
+		connection.setMotDePasse(motDePasse);
+		
+		int pos = login.indexOf("@");
 		String type = null;
 		
 		//
 		if (pos > 0) {
-			//TODO connection.setEmail(connection.getPseudo());
 			type = "email";
+			connection.setEmail(login);
 		}else if (pos < 0) {
+			connection.setPseudo(login);
 			type = "pseudo";
 		}
 		
@@ -48,14 +48,13 @@ public class GestionUtilisateurBLL {
 		if (utilisateur.getPseudo() != null  || utilisateur.getEmail() != null) {
 			
 			//Verification si le mot de passe est correct
-			//TODO TEMPORAIRE : connection.getMotDePasse()
-			if (utilisateur.getMotDePasse().equals(connection.getEmail())) {
+			if (utilisateur.getMotDePasse().equals(connection.getMotDePasse())) {
 				System.out.println("c'est bon");
 			}else {
 				System.out.println("Erreur mot de passe erronée");
 			}
 			
-		}else if (utilisateur.getPseudo() == null || utilisateur.getEmail() == null){
+		}else if (utilisateur.getPseudo() == null && utilisateur.getEmail() == null){
 			System.out.println("Erreur pseudo ou email inconnue");
 		}
 	}
@@ -65,7 +64,7 @@ public class GestionUtilisateurBLL {
 		
 		List<Utilisateur> liste = new ArrayList<Utilisateur>();
 		
-		//recuperation des utilisateur
+		//recuperation des utilisateurs
 		try {
 			liste = gestionUtilisateur.verifExistant(inscrit);
 		} catch (SQLException e) {
@@ -96,6 +95,7 @@ public class GestionUtilisateurBLL {
 				verif = true;
 			}
 		}
+		
 		/*iscription dans la base de donne si le pseudo
 		*et l'email son different de ce deja inscrit
 		*/
@@ -107,6 +107,86 @@ public class GestionUtilisateurBLL {
 			}
 		}
 		
+	}
+	
+	//Methode gerant l'affichage du profil d'un utilisateur
+	public Utilisateur afficherProfil(String pseudo) {
+		Utilisateur profil = new Utilisateur();
+		
+		try {
+			profil = gestionUtilisateur.VoirProfil(pseudo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return profil;
+	}
+	
+	//Methode gerant la modification du profil d'un utilisateur
+	public void modificationProfil(Utilisateur profil,String pseudoActuel,String emailActuel) {
+		
+		List<Utilisateur> liste = new ArrayList<Utilisateur>();		
+		
+		//recuperation des utilisateurs
+		try {
+			liste = gestionUtilisateur.verifExistant(profil);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String pseudoEntrer = profil.getPseudo();
+		String emailEntrer = profil.getEmail();
+		Boolean verif = false;
+			
+			//verification si le pseudo a été modifier
+			if (!pseudoActuel.equals(profil.getPseudo())) {
+				
+				//verification que le pseudo n'ai pas deja utiliser
+				for (int i =0; i< liste.size(); i++) {
+					
+					String pseudoBDD = liste.get(i).getPseudo();
+					
+					if (pseudoEntrer.equals(pseudoBDD)) {
+						verif = false;
+						System.out.println("erreur pseudo déjà utiliser");
+					}
+					else if (!pseudoEntrer.equals(pseudoBDD)){
+						verif = true;
+					}
+				}
+				
+			//verification si l'email a été modifier
+			} else if (!emailActuel.equals(profil.getEmail())) {
+				
+				//verification que l'email n'ai pas deja utiliser
+				for (int i =0; i< liste.size(); i++) {
+					
+					String emailBDD = liste.get(i).getEmail();
+					
+					if (emailEntrer.equals(emailBDD)) {
+						verif = false;
+						System.out.println("Erreur email déjà utiliser");
+					}
+					else if (!emailEntrer.equals(emailBDD)){
+						verif = true;
+					}
+				}
+			}
+		
+		/*modification dans la base de donne si le pseudo
+		*et l'email son different de ce deja inscrit
+		*/
+		if (verif.equals(true)) {
+			try {
+				
+				gestionUtilisateur.ModificationProfil(profil,pseudoActuel);
+				afficherProfil(profil.getPseudo());
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }
