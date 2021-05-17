@@ -17,6 +17,7 @@ public class Article {
 		this.miseAPrix = miseAPrix;
 
 	}
+	
 	public Article() {
 
 

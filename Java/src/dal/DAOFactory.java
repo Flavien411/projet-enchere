@@ -9,7 +9,7 @@ public class DAOFactory {
 		return new NouvelleVenteDAOJdbcImpl();
 	}
 	
-	/*public static DetailVenteDAO getDetailVenteDAO() {
+	public static DetailVenteDAO getDetailVenteDAO() {
 		return new DetailVenteDAOJdbcImpl();
-	}*/
+	}
 }

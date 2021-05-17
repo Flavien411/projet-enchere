@@ -14,7 +14,7 @@ import connectionBDD.JdbcTools;
 
 public class NouvelleVenteDAOJdbcImpl implements NouvelleVenteDAO {
 
-	private static final String sqlInsertArticle = " INSERT INTO ARTICLE (nomArticle,description,miseAPrix,dateDebut,dateFin) VALUES (?,?,?,?,?)";
+	private static final String sqlInsertArticle = " INSERT INTO ARTICLE_VENDU (nomArticle,description,miseAPrix,dateDebut,dateFin) VALUES (?,?,?,?,?)";
 	private static final String sqlInsertRetrait = " INSERT INTO RETRAIT (rueRetrait,codePostalRetrait,villeRetrait) VALUES (?,?,?)";
 	private static final String sqlSelectCategorie = "SELECT libelle" + " FROM CATEGORIE WHERE libelle = ?";
 
