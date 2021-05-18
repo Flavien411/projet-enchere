@@ -28,13 +28,13 @@ public class NouvelleVenteManager {
 		article.setMiseAPrix(miseAPrix);
 		article.setDateDebut(dateDebut);
 		article.setDateFin(dateFin);
-		
+
 		try {
 			this.nouvelleVenteDAO.insertArticle(article);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return article;
 	}
 
@@ -45,7 +45,7 @@ public class NouvelleVenteManager {
 
 		categorie = new Categorie();
 		categorie.getLibelle();
-		
+
 		try {
 			this.nouvelleVenteDAO.selectionCategorie(categorie);
 		} catch (SQLException e) {
@@ -64,7 +64,7 @@ public class NouvelleVenteManager {
 		retrait.setRueRetrait(rueRetrait);
 		retrait.setCodePostalRetrait(codePostalRetrait);
 		retrait.setVilleRetrait(villeRetrait);
-		
+
 		try {
 			this.nouvelleVenteDAO.insertRetrait(retrait);
 		} catch (SQLException e) {
