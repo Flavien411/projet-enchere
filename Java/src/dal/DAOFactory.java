@@ -9,9 +9,9 @@ public class DAOFactory {
 		return new NouvelleVenteDAOJdbcImpl();
 	}
 	
-	/*public static DetailVenteDAO getDetailVenteDAO() {
+	public static DetailVenteDAO getDetailVenteDAO() {
 		return new DetailVenteDAOJdbcImpl();
-	}*/
+	}
 	
 	public static ListeEnchere getListeEncherDAO() {
 		return new ListeEnchereJdbcImpl();

@@ -14,8 +14,8 @@ import connectionBDD.JdbcTools;
 
 public class NouvelleVenteDAOJdbcImpl implements NouvelleVenteDAO {
 
-	private static final String sqlInsertArticle = " INSERT INTO ARTICLE (nomArticle,description,miseAPrix,dateDebut,dateFin) VALUES (?,?,?,?,?)";
-	private static final String sqlInsertRetrait = " INSERT INTO RETRAIT (rueRetrait,codePostalRetrait,villeRetrait) VALUES (?,?,?)";
+	private static final String sqlInsertArticle = " INSERT INTO ARTICLE_VENDU (nom_Article,description,mise_a_prix,date_debut_encheres,date_fin_encheres) VALUES (?,?,?,?,?)";
+	private static final String sqlInsertRetrait = " INSERT INTO RETRAIT (rue,code_postal,ville) VALUES (?,?,?)";
 	private static final String sqlSelectCategorie = "SELECT libelle" + " FROM CATEGORIE WHERE libelle = ?";
 
 	@Override
@@ -48,9 +48,9 @@ public class NouvelleVenteDAOJdbcImpl implements NouvelleVenteDAO {
 
 	@Override
 	public List<Categorie> selectionCategorie(Categorie categorie) throws SQLException {
-		
+
 		List<Categorie> listeCategorie = new ArrayList<Categorie>();
-		
+
 		// Connection à la BDD
 		Connection uneConnection = null;
 		uneConnection = JdbcTools.getConnection();
@@ -65,7 +65,7 @@ public class NouvelleVenteDAOJdbcImpl implements NouvelleVenteDAO {
 		// Fermeture de la connexion
 		uneConnection.close();
 		System.out.println("Fermeture");
-		
+
 		return listeCategorie;
 	}
 
