@@ -18,7 +18,7 @@ public class GestionUtilisateurBLL {
 	}
 	
 	//Methode gerant la connection d'un utilisateur
-	public void gestionUtilisateur(String login,String motDePasse) {
+	public void Connection(String login,String motDePasse) {
 		
 		//TEMPORAIRE TODO: recupérer les info de l'interface graphique
 		Utilisateur utilisateur = new Utilisateur();
@@ -123,8 +123,8 @@ public class GestionUtilisateurBLL {
 	}
 	
 	//Methode gerant la modification du profil d'un utilisateur
-	public void modificationProfil(Utilisateur profil,String pseudoActuel,String emailActuel) {
-		
+	public Utilisateur modificationProfil(Utilisateur profil,String pseudoActuel,String emailActuel) {
+		Utilisateur modif = new Utilisateur();
 		List<Utilisateur> liste = new ArrayList<Utilisateur>();		
 		
 		//recuperation des utilisateurs
@@ -180,12 +180,14 @@ public class GestionUtilisateurBLL {
 			try {
 				
 				gestionUtilisateur.ModificationProfil(profil,pseudoActuel);
-				afficherProfil(profil.getPseudo());
+				modif = afficherProfil(profil.getPseudo());
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		
+		return modif;
 
 	}
 

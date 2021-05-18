@@ -12,4 +12,8 @@ public class DAOFactory {
 	/*public static DetailVenteDAO getDetailVenteDAO() {
 		return new DetailVenteDAOJdbcImpl();
 	}*/
+	
+	public static ListeEnchere getListeEncherDAO() {
+		return new ListeEnchereJdbcImpl();
+	}
 }
