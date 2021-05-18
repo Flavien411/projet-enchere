@@ -16,54 +16,50 @@ public class GestionUtilisateurJdbcImpl implements GestionUtilisateur{
 	private static final String SELECT_ConnectionEmail = "SELECT email,mot_de_passe FROM UTILISATEUR WHERE email = ?";
 	private static final String SELECT_VerifExistant=" SELECT pseudo,email FROM UTILISATEUR";
     private static final String INSERT_Instricption=" INSERT INTO UTILISATEUR (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit) VALUES (?,?,?,?,?,?,?,?,?,?)";
-    
-    private static final String SELECT_VoirProfil = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,credit FROM UTILISATEUR WHERE pseudo = ?";
-	private static final String SELECT_VoirMonProfil = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit FROM UTILISATEUR WHERE pseudo = ?";
-	private static final String UPDATE_ModifProfil = "UPDATE UTILISATEUR SET  (pseudo = ?,nom = ?,prenom = ?,email = ?,telephone = ?,rue,code_postal = ?,ville = ?,mot_de_passe = ?,credit = ? WHERE pseudo = ?";
+	private static final String SELECT_VoirProfil = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit FROM UTILISATEUR WHERE pseudo = ?";
+	private static final String UPDATE_ModifProfil = "UPDATE UTILISATEUR SET pseudo = ?,nom = ?,prenom = ?,email = ?,telephone = ?,rue = ?,code_postal = ?,ville = ?,mot_de_passe = ? WHERE pseudo = ?";
 
-
+	//recuperation des informations de l'utilisateur
 	@Override
 	public Utilisateur VoirProfil(String pseudo) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Utilisateur VoirMonProfil(String pseudo) throws SQLException {
+		
 		Connection uneConnection = null;
 		ResultSet rs = null;
-		Utilisateur MonProfil = new Utilisateur();
+		Utilisateur Profil = new Utilisateur();
 		
 		//connection à la BDD
 		uneConnection = JdbcTools.getConnection();
 		
 		//Requette à la BDD
-		PreparedStatement pstmt = uneConnection.prepareStatement(SELECT_VoirMonProfil);
+		PreparedStatement pstmt = uneConnection.prepareStatement(SELECT_VoirProfil);
 		pstmt.setString(1,pseudo);
 		rs = pstmt.executeQuery();
 		
 		//Recuperation des données recupérer
 		rs.next();
-		MonProfil.setPseudo(rs.getString("pseudo"));
-		MonProfil.setPrenom(rs.getString("pseudo"));
-		MonProfil.setNom(rs.getString("pseudo"));
-		MonProfil.setEmail(rs.getString("pseudo"));
-		MonProfil.setTelephone(rs.getString("pseudo"));
-		MonProfil.setRue(rs.getString("pseudo"));
-		MonProfil.setCodePostal(rs.getInt("code_postal"));
-		MonProfil.setVille(rs.getString("pseudo"));
-		MonProfil.setMotDePasse(rs.getString("pseudo"));
-		MonProfil.setCredit(rs.getInt("pseudo"));
-		return MonProfil;
+		Profil.setPseudo(rs.getString("pseudo"));
+		Profil.setPrenom(rs.getString("prenom"));
+		Profil.setNom(rs.getString("nom"));
+		Profil.setEmail(rs.getString("email"));
+		Profil.setTelephone(rs.getString("telephone"));
+		Profil.setRue(rs.getString("rue"));
+		Profil.setCodePostal(rs.getInt("code_postal"));
+		Profil.setVille(rs.getString("ville"));
+		Profil.setMotDePasse(rs.getString("mot_de_passe"));
+		Profil.setCredit(rs.getInt("credit"));
+		
+		//Fermeture de la connexion
+		uneConnection.close();
+		
+		return Profil;
 	}
 	
+	//Mise a jour de l'utilisateur dans la BDD
 	@Override
-	public void ModificationProfil(Utilisateur modif) throws SQLException {
+	public void ModificationProfil(Utilisateur modif,String pseudoActuel) throws SQLException {
 		//connection à la BDD
 		Connection uneConnection = null;
 		uneConnection = JdbcTools.getConnection();
-		System.out.println("----------------");
-		System.out.println("connection");
 		
 		//Requette à la BDD
 		PreparedStatement pstmt = uneConnection.prepareStatement(UPDATE_ModifProfil);
@@ -78,12 +74,12 @@ public class GestionUtilisateurJdbcImpl implements GestionUtilisateur{
 		pstmt.setInt(7, modif.getCodePostal());
 		pstmt.setString(8, modif.getVille());
 		pstmt.setString(9, modif.getMotDePasse());
+		pstmt.setString(10,pseudoActuel);
+
 		pstmt.executeUpdate();
-		System.out.println("requette");
 
 		//Fermeture de la connexion
 		uneConnection.close();
-		System.out.println("fermeture");
 
 	}
 	
@@ -139,7 +135,7 @@ public class GestionUtilisateurJdbcImpl implements GestionUtilisateur{
 
 		
 		//Requette à la BDD
-		PreparedStatement pstmt = uneConnection.prepareStatement(SELECT_VerifExistant);
+		PreparedStatement pstmt =  uneConnection.prepareStatement(SELECT_VerifExistant);
 		
 		//Recuperation des données recupérer
 		ResultSet rs = pstmt.executeQuery();
