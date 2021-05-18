@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import bll.GestionUtilisateurBLL;
 import bo.Utilisateur;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ public class ServletModificationProfil extends HttpServlet {
 		
 		GestionUtilisateurBLL b = new GestionUtilisateurBLL();
 		Utilisateur u = new Utilisateur();
+		
 		//recuperation des information TODO temporaire
 		u.setPseudo(request.getParameter("pseudo"));
 		u.setNom(request.getParameter("nom"));
@@ -45,14 +47,36 @@ public class ServletModificationProfil extends HttpServlet {
 		u.setCodePostal(Integer.parseInt(request.getParameter("codePostal")));
 		u.setVille(request.getParameter("ville"));
 		
+		//on regarde si le mot de passe a été modifier
 		if (request.getParameter("nouveauMotDePasse").equals(null)) {
+			
 			u.setMotDePasse(request.getParameter("motDePasse"));
+			b.modificationProfil(u, "pseudoActuel", "EmailActuel");
+			
+			//on verifie que le nouveau mot de passe correspond a la confirmation du nouveau mot de passe
 		} else if (!request.getParameter("nouveauMotDePasse").equals(null)) {
 			if (request.getParameter("nouveauMotDePasse").equals((request.getParameter("confirmerMotDePasse")))) {
 				u.setMotDePasse(request.getParameter("nouveauMotDePasse"));
+				//
+				u = b.modificationProfil(u, "pseudoActuel", "EmailActuel");
+				
+				//affichage des modification
+				request.setAttribute("pseudo", u.getPseudo());
+				request.setAttribute("nom", u.getNom());
+				request.setAttribute("prenom", u.getPrenom());
+				request.setAttribute("email", u.getEmail());
+				request.setAttribute("telephone", u.getTelephone());
+				request.setAttribute("rue", u.getRue());
+				request.setAttribute("codePostal", u.getCodePostal());
+				request.setAttribute("ville", u.getVille());
+				request.setAttribute("motDePasse", u.getMotDePasse());
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Profil.html");
+				rd.forward(request, response);
+			}else {
+				System.out.println("la confirmation du mot de passe est incorrecte");
 			}
 		}
-		b.modificationProfil(u, "pseudoActuel", "EmailActuel");
 
 	}
 }

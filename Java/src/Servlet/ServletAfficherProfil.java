@@ -3,6 +3,7 @@ package Servlet;
 import java.io.IOException;
 
 import bll.GestionUtilisateurBLL;
+import bo.Utilisateur;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -35,11 +36,39 @@ public class ServletAfficherProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GestionUtilisateurBLL b = new GestionUtilisateurBLL();
-		b.afficherProfil(request.getParameter("pseudo"));
-
-		HttpSession session = request.getSession();
-		session.getSessionContext();
-
+		Utilisateur u = new Utilisateur();
+		//si c'est le profil de l'utilisateur
+		if (request.getParameter("pseudo").equals(request.getParameter("connectée")) ) {
+			
+			u = b.afficherProfil(request.getParameter("pseudo"));
+			request.setAttribute("pseudo", u.getPseudo());
+			request.setAttribute("nom", u.getNom());
+			request.setAttribute("prenom", u.getPrenom());
+			request.setAttribute("email", u.getEmail());
+			request.setAttribute("telephone", u.getTelephone());
+			request.setAttribute("rue", u.getRue());
+			request.setAttribute("codePostal", u.getCodePostal());
+			request.setAttribute("ville", u.getVille());
+			request.setAttribute("motDePasse", u.getMotDePasse());
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Profil.html");
+			rd.forward(request, response);
+			//si c'est le profil d'un autre utilisateur
+		}else {
+			
+			u = b.afficherProfil(request.getParameter("pseudo"));
+			request.setAttribute("pseudo", u.getPseudo());
+			request.setAttribute("nom", u.getNom());
+			request.setAttribute("prenom", u.getPrenom());
+			request.setAttribute("email", u.getEmail());
+			request.setAttribute("telephone", u.getTelephone());
+			request.setAttribute("rue", u.getRue());
+			request.setAttribute("codePostal", u.getCodePostal());
+			request.setAttribute("ville", u.getVille());
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Profil.html");
+			rd.forward(request, response);
+		}
 	}
 
 }

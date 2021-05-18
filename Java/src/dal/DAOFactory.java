@@ -16,4 +16,8 @@ public class DAOFactory {
 	public static AccueilDAO getAcceuilDAO() {
 		return new AccueilDAOJdbcImpl();
 	}
+	
+	public static ListeEnchere getListeEncherDAO() {
+		return new ListeEnchereJdbcImpl();
+	}
 }

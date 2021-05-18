@@ -6,6 +6,8 @@ public class Article {
 	private int noArticle,miseAPrix,prixVente;
 	private String nomArticle,description,etatVente;
 	private Date dateDebut,dateFin;
+	private Categorie categorie;
+	private Utilisateur Vendeur,Acheteur;
 	
 	//Constructeur
 	public Article(String nomArticle, String description, String etatVente, Date dateDebut, Date dateFin, int miseAPrix) {
@@ -71,6 +73,24 @@ public class Article {
 	}
 	public void setDateFin(Date dateFin) {
 		this.dateFin = dateFin;
+	}
+	public Categorie getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+	public Utilisateur getVendeur() {
+		return Vendeur;
+	}
+	public void setVendeur(Utilisateur vendeur) {
+		Vendeur = vendeur;
+	}
+	public Utilisateur getAcheteur() {
+		return Acheteur;
+	}
+	public void setAcheteur(Utilisateur acheteur) {
+		Acheteur = acheteur;
 	}
 	
 	
