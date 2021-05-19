@@ -18,21 +18,20 @@ public class GestionUtilisateurBLL {
 	}
 	
 	//Methode gerant la connection d'un utilisateur
-	public void Connection(String login,String motDePasse) {
+	public Utilisateur Connection(String login,String motDePasse) {
 		
 		//TEMPORAIRE TODO: recupérer les info de l'interface graphique
 		Utilisateur utilisateur = new Utilisateur();
 		Utilisateur connection = new Utilisateur();
 		connection.setMotDePasse(motDePasse);
-		
-		int pos = login.indexOf("@");
+
 		String type = null;
 		
 		//
-		if (pos > 0) {
+		if (login.contains("@")) {
 			type = "email";
 			connection.setEmail(login);
-		}else if (pos < 0) {
+		}else if (!login.contains("@")) {
 			connection.setPseudo(login);
 			type = "pseudo";
 		}
@@ -49,14 +48,18 @@ public class GestionUtilisateurBLL {
 			
 			//Verification si le mot de passe est correct
 			if (utilisateur.getMotDePasse().equals(connection.getMotDePasse())) {
-				System.out.println("c'est bon");
+				return utilisateur;
 			}else {
 				System.out.println("Erreur mot de passe erronée");
 			}
 			
-		}else if (utilisateur.getPseudo() == null && utilisateur.getEmail() == null){
-			System.out.println("Erreur pseudo ou email inconnue");
+		}else if (utilisateur.getPseudo() == null){
+			System.out.println("Erreur pseudo inconnue");
+		}else if (utilisateur.getEmail() == null) {
+			System.out.println("Erreur email inconnue");
 		}
+
+		return utilisateur;
 	}
 	
 	//Methode gerant l'inscription d'un utilisateur
