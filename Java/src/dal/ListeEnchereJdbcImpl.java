@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import bo.Article;
@@ -15,12 +14,12 @@ import connectionBDD.JdbcTools;
 
 public class ListeEnchereJdbcImpl implements ListeEnchere {
 	
-	private static final String SELECT_ListeEnchere = "SELECT nom_article,mise_a_pris,date_fin_enchere,no_categorie,no_vendeur FROM ARTICLE_VENDU WHERE date_debut_encheres >= ?";
+	private static final String SELECT_ListeEnchere = "SELECT nom_article,mise_a_prix,date_fin_encheres,date_debut_encheres,no_categorie,no_vendeur FROM ARTICLE_VENDU";	
 	private static final String SELECT_PseudoVendeur = "SELECT no_utilisateur,pseudo FROM UTILISATEUR WHERE no_utilisateur = ?";
 	private static final String SELECT_libelleCategorie = "SELECT no_categorie,libelle FROM Categorie WHERE no_categorie = ?";
 
 
-	public List<Article> ListeEnchere() throws SQLException {
+	public List<Article> listeEnchere() throws SQLException {
 		
 		List<Article> liste = new ArrayList<Article>();
 		
@@ -28,11 +27,8 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 		Connection uneConnection = null;
 		uneConnection = JdbcTools.getConnection();
 		
-		Date dateJour = new Date();
-		
 		//Requette à la BDD
 		PreparedStatement pstmt =  uneConnection.prepareStatement(SELECT_ListeEnchere);
-		pstmt.setDate(1,(java.sql.Date) dateJour);
 		
 		//Recuperation des données recupérer
 		ResultSet rs = pstmt.executeQuery();
@@ -42,11 +38,12 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 			Utilisateur u = new Utilisateur();
 
 			c = libelleCategorie(rs.getInt("no_categorie"));
-			u =  pseudoVendeur(rs.getInt("no_utilisateur"));
+			u =  pseudoVendeur(rs.getInt("no_vendeur"));
 					
 			a.setNomArticle(rs.getString("nom_article"));
 			a.setMiseAPrix(rs.getInt("mise_a_prix"));
-			a.setDateFin(rs.getDate("date_fin_enchere"));
+			a.setDateFin(rs.getDate("date_fin_encheres"));
+			a.setDateDebut(rs.getDate("date_debut_encheres"));
 			a.setCategorie(c);
 			a.setVendeur(u);
 			liste.add(a);
@@ -82,10 +79,10 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 		Categorie c = new Categorie();
 		
 		//connection à la BDD
-		Connection uneConnection = null;
-		uneConnection = JdbcTools.getConnection();
+		Connection uneConnectionCategorie = null;
+		uneConnectionCategorie = JdbcTools.getConnection();
 		
-		PreparedStatement pstmt = uneConnection.prepareStatement(SELECT_libelleCategorie);
+		PreparedStatement pstmt = uneConnectionCategorie.prepareStatement(SELECT_libelleCategorie);
 		pstmt.setInt(1,noCategorie);
 		rs = pstmt.executeQuery();
 		rs.next();
@@ -93,8 +90,8 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 		c.setLibelle(rs.getString("libelle"));
 		
 		//Fermeture de la connexion
-		uneConnection.close();
+		uneConnectionCategorie.close();
 		
-		return null;
+		return c;
 	}
 }

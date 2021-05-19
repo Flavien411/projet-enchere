@@ -6,6 +6,6 @@ import java.util.List;
 import bo.Article;
 
 public interface ListeEnchere {
-	public List<Article> ListeEnchere() throws SQLException;
+	public List<Article> listeEnchere() throws SQLException;
 
 }

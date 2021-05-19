@@ -12,8 +12,8 @@ import connectionBDD.JdbcTools;
 
 public class GestionUtilisateurJdbcImpl implements GestionUtilisateur{
    
-	private static final String SELECT_ConnectionPseudo = "SELECT pseudo,mot_de_passe FROM UTILISATEUR WHERE pseudo = ?";
-	private static final String SELECT_ConnectionEmail = "SELECT email,mot_de_passe FROM UTILISATEUR WHERE email = ?";
+	private static final String SELECT_ConnectionPseudo = "SELECT pseudo,mot_de_passe,email FROM UTILISATEUR WHERE pseudo = ?";
+	private static final String SELECT_ConnectionEmail = "SELECT email,mot_de_passe,pseudo FROM UTILISATEUR WHERE email = ?";
 	private static final String SELECT_VerifExistant=" SELECT pseudo,email FROM UTILISATEUR";
     private static final String INSERT_Instricption=" INSERT INTO UTILISATEUR (pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_VoirProfil = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit FROM UTILISATEUR WHERE pseudo = ?";
