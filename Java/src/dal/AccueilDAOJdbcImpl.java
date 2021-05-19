@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bo.Article;
+import bo.Categorie;
+import bo.Utilisateur;
 import connectionBDD.JdbcTools;
 
 public class AccueilDAOJdbcImpl implements AccueilDAO<Article> {
@@ -19,6 +21,7 @@ public class AccueilDAOJdbcImpl implements AccueilDAO<Article> {
 
 	@Override
 	public List<Article> selectAll() throws SQLException {
+		// Connection à la BDD
 		Connection cnx = null;
 		Statement rqt = null;
 		ResultSet rs = null;
@@ -33,8 +36,9 @@ public class AccueilDAOJdbcImpl implements AccueilDAO<Article> {
 			while (rs.next()) {
 				art = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
 						rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("mise_a_prix"),
-						rs.getInt("prix_vente"), rs.getString("etat_vente"), rs.getInt("no_categorie"),
-						rs.getInt("no_acheteur"), rs.getInt("no_vendeur"));
+						rs.getInt("prix_vente"), rs.getString("etat_vente"),
+						rs.getObject("no_categorie", Categorie.class), rs.getObject("no_acheteur", Utilisateur.class),
+						rs.getObject("no_vendeur", Utilisateur.class));
 				liste.add(art);
 			}
 		} catch (SQLException e) {
@@ -47,6 +51,7 @@ public class AccueilDAOJdbcImpl implements AccueilDAO<Article> {
 
 	@Override
 	public Article selectByCategorie(Article articleCritere) throws SQLException {
+		// Connection à la BDD
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -55,14 +60,15 @@ public class AccueilDAOJdbcImpl implements AccueilDAO<Article> {
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(sqlselectByCategorie);
-			rqt.setInt(1, articleCritere.getNoArticle()); //NoCategorie normalement, à voir comment modifier...
+			rqt.setObject(1, articleCritere.getCategorie());
 
 			rs = rqt.executeQuery();
 			if (rs.next()) {
 				art = new Article(rs.getInt("no_article"), rs.getString("nom_article"), rs.getString("description"),
 						rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("mise_a_prix"),
-						rs.getInt("prix_vente"), rs.getString("etat_vente"), rs.getInt("no_categorie"),
-						rs.getInt("no_acheteur"), rs.getInt("no_vendeur"));
+						rs.getInt("prix_vente"), rs.getString("etat_vente"),
+						rs.getObject("no_categorie", Categorie.class), rs.getObject("no_acheteur", Utilisateur.class),
+						rs.getObject("no_vendeur", Utilisateur.class));
 			}
 		} catch (SQLException e) {
 			System.out.println("selectByCategorie failed - ");

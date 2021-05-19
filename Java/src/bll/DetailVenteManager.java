@@ -22,13 +22,10 @@ public class DetailVenteManager {
 		article = new Article();
 		article.getNomArticle();
 		article.getDescription();
+		article.getEtatVente();
+		article.getDateDebut();
 		article.getDateFin();
-
-		try {
-			this.detailVenteDAO.selectAllArticles(article);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		article.getMiseAPrix();
 
 		return article;
 	}
