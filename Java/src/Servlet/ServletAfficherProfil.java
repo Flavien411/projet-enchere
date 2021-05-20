@@ -36,9 +36,10 @@ public class ServletAfficherProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GestionUtilisateurBLL b = new GestionUtilisateurBLL();
+		HttpSession session = request.getSession();
 		Utilisateur u = new Utilisateur();
 		//si c'est le profil de l'utilisateur
-		if (request.getParameter("pseudo").equals(request.getParameter("connectée")) ) {
+		if (request.getParameter("pseudo").equals(session.getAttribute("pseudo")) ) {
 			
 			u = b.afficherProfil(request.getParameter("pseudo"));
 			request.setAttribute("pseudo", u.getPseudo());

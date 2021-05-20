@@ -14,7 +14,7 @@ import connectionBDD.JdbcTools;
 
 public class ListeEnchereJdbcImpl implements ListeEnchere {
 	
-	private static final String SELECT_ListeEnchere = "SELECT nom_article,mise_a_prix,date_fin_encheres,date_debut_encheres,no_categorie,no_vendeur FROM ARTICLE_VENDU";	
+	private static final String SELECT_ListeEnchere = "SELECT * FROM ARTICLE_VENDU";	
 	private static final String SELECT_PseudoVendeur = "SELECT no_utilisateur,pseudo FROM UTILISATEUR WHERE no_utilisateur = ?";
 	private static final String SELECT_libelleCategorie = "SELECT no_categorie,libelle FROM Categorie WHERE no_categorie = ?";
 
@@ -37,15 +37,16 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 			Categorie c = new Categorie();
 			Utilisateur u = new Utilisateur();
 
-			c = libelleCategorie(rs.getInt("no_categorie"));
-			u =  pseudoVendeur(rs.getInt("no_vendeur"));
-					
 			a.setNomArticle(rs.getString("nom_article"));
 			a.setMiseAPrix(rs.getInt("mise_a_prix"));
 			a.setDateFin(rs.getDate("date_fin_encheres"));
 			a.setDateDebut(rs.getDate("date_debut_encheres"));
+			c = libelleCategorie(rs.getInt("no_categorie"));		
 			a.setCategorie(c);
+			u =  pseudoUtilisateur(rs.getInt("no_vendeur"));
 			a.setVendeur(u);
+			u =  pseudoUtilisateur(rs.getInt("no_acheteur"));
+			a.setAcheteur(u);
 			liste.add(a);
 		}
 		
@@ -55,7 +56,7 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 		
 	}
 
-	private Utilisateur pseudoVendeur(int noUtilisateur) throws SQLException {
+	private Utilisateur pseudoUtilisateur(int noUtilisateur) throws SQLException {
 		ResultSet rs = null;
 		Utilisateur u = new Utilisateur();
 		//connection à la BDD

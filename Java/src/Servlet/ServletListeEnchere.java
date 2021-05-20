@@ -6,12 +6,12 @@ import java.util.List;
 
 import bll.ListeEnchereBLL;
 import bo.Article;
-import bo.Utilisateur;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class ServletListeEnchere extends HttpServlet {
 
@@ -35,18 +35,43 @@ public class ServletListeEnchere extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
 		ListeEnchereBLL b = new ListeEnchereBLL();
 		List<Article> liste = new ArrayList<Article>();
-		
-		liste = b.listeDeconnecter();
-		if (request.getAttribute("categorie").equals("tous")) {
-			
+		String pseudo = session.getAttribute("pseudo").toString();
+		if (pseudo == null) {
+			if (request.getParameter("categorie").equals("tous") && request.getParameter("recherche").equals(null)) {
+				liste = b.listeEnchere();
+
+			}else if (!request.getParameter("categorie").equals("tous") ) {
+				liste = b.listeCategorie(request.getParameter("categorie"));
+				
+			}else if(!request.getParameter("recherche").equals(null)) {
+				liste = b.listeNomArticle(request.getParameter("recherche"));
+			}
+
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Acceuil.html");
 			rd.forward(request, response);
-		}
-		
-		
+		}else if(pseudo != null) {
+			
+			if (request.getParameter("categorie").equals("tous") && request.getParameter("recherche").equals(null)) {
+				liste = b.listeEnchere();
+
+			}else if (!request.getParameter("categorie").equals("tous") ) {
+				liste = b.listeCategorie(request.getParameter("categorie"));
+				
+			}else if(!request.getParameter("recherche").equals(null)) {
+				liste = b.listeNomArticle(request.getParameter("recherche"));
+			}else if(request.getParameter("venteEnCours").equals(true)) {
+				liste = b.listeMesVenteEnCours(pseudo);
+			}else if(request.getParameter("venteNonDebute").equals(true)) {
+				liste = b.listeMesVenteNonDebute(pseudo);
+			}else if(request.getParameter("venteRemporte").equals(true)) {
+				liste = b.listeMesVenteRemporte(pseudo);
+			}else if(request.getParameter("venteTerminer").equals(true)) {
+				liste = b.listeMesVenteTerminer(pseudo);
+			}
+		}	
 
 	}
 }

@@ -37,7 +37,7 @@ public class ServletModificationProfil extends HttpServlet {
 		GestionUtilisateurBLL b = new GestionUtilisateurBLL();
 		Utilisateur u = new Utilisateur();
 		
-		//recuperation des information TODO temporaire
+		//recuperation des information
 		u.setPseudo(request.getParameter("pseudo"));
 		u.setNom(request.getParameter("nom"));
 		u.setPrenom(request.getParameter("prenom"));
@@ -47,18 +47,23 @@ public class ServletModificationProfil extends HttpServlet {
 		u.setCodePostal(Integer.parseInt(request.getParameter("codePostal")));
 		u.setVille(request.getParameter("ville"));
 		
+		//recuperation info session
+		HttpSession session = request.getSession();
+		String pseudoActuel = (String) session.getAttribute("pseudo");
+		String emailActuel =  (String) session.getAttribute("email");
+		
 		//on regarde si le mot de passe a été modifier
 		if (request.getParameter("nouveauMotDePasse").equals(null)) {
-			
+
 			u.setMotDePasse(request.getParameter("motDePasse"));
-			b.modificationProfil(u, "pseudoActuel", "EmailActuel");
+			b.modificationProfil(u, pseudoActuel, emailActuel);
 			
 			//on verifie que le nouveau mot de passe correspond a la confirmation du nouveau mot de passe
 		} else if (!request.getParameter("nouveauMotDePasse").equals(null)) {
 			if (request.getParameter("nouveauMotDePasse").equals((request.getParameter("confirmerMotDePasse")))) {
+				
 				u.setMotDePasse(request.getParameter("nouveauMotDePasse"));
-				//
-				u = b.modificationProfil(u, "pseudoActuel", "EmailActuel");
+				u = b.modificationProfil(u, pseudoActuel, emailActuel);
 				
 				//affichage des modification
 				request.setAttribute("pseudo", u.getPseudo());

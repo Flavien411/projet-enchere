@@ -34,11 +34,14 @@ public class ServletConnection {
 			HttpSession session = request.getSession();
 			GestionUtilisateurBLL b = new GestionUtilisateurBLL();
 			Utilisateur u = new Utilisateur();
-			u = b.Connection(request.getParameter("pseudo"),request.getParameter("motDePasse"));
-			session.setAttribute("pseudo",u.getPseudo());
-			session.setAttribute("email", u.getEmail());
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Acceuil.html");
-			rd.forward(request, response);
+			u = b.Connection(request.getParameter("pseudo"),request.getParameter("motDePasse"));
+			if (u.getPseudo() != null && u.getEmail() != null) {
+				session.setAttribute("pseudo",u.getPseudo());
+				session.setAttribute("email", u.getEmail());
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Acceuil.html");
+				rd.forward(request, response);
+			}
 		}
 }
