@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import bo.Article;
+import bo.Enchere;
+import bo.Utilisateur;
 import dal.DAOFactory;
 import dal.ListeEnchere;
 
@@ -21,12 +23,12 @@ public class ListeEnchereBLL {
 	//liste non connectée
 	public List<Article> listeEnchere() {
 		List<Article> liste = new ArrayList<Article>();
-		List<Article> listeDeconnectée = new ArrayList<Article>();
+		List<Article> listeEnCours = new ArrayList<Article>();
 		LocalDate aujourdhui = LocalDate.now();
 		Date datejour = java.sql.Date.valueOf(aujourdhui);
 
 		try {
-			liste = listeEnchere.listeEnchere();
+			liste = listeEnchere.listeArticleVendu();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -36,11 +38,10 @@ public class ListeEnchereBLL {
 			Date dateDebut = liste.get(i).getDateDebut();
 			
 			if (datejour.after(dateDebut)) {
-				System.out.println("c bon");
-				listeDeconnectée.add(liste.get(i));
+				listeEnCours.add(liste.get(i));
 			}
 		}
-		return listeDeconnectée;
+		return listeEnCours;
 	}
 	
 	//liste par categorie
@@ -49,7 +50,7 @@ public class ListeEnchereBLL {
 		List<Article> listeCategorie = new ArrayList<Article>();
 
 		try {
-			liste = listeEnchere.listeEnchere();
+			liste = listeEnchere.listeArticleVendu();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -70,7 +71,7 @@ public class ListeEnchereBLL {
 		List<Article> listeNomArticle = new ArrayList<Article>();
 
 		try {
-			liste = listeEnchere.listeEnchere();
+			liste = listeEnchere.listeArticleVendu();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +92,7 @@ public class ListeEnchereBLL {
 		Date datejour = java.sql.Date.valueOf(aujourdhui);
 
 		try {
-			liste = listeEnchere.listeEnchere();
+			liste = listeEnchere.listeArticleVendu();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -118,7 +119,7 @@ public class ListeEnchereBLL {
 		Date datejour = java.sql.Date.valueOf(aujourdhui);
 
 		try {
-			liste = listeEnchere.listeEnchere();
+			liste = listeEnchere.listeArticleVendu();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -128,7 +129,7 @@ public class ListeEnchereBLL {
 			Date dateFin = liste.get(i).getDateFin();
 			
 			if (liste.get(i).getVendeur().getPseudo().equals(pseudo)) {
-				if(datejour.after(dateFin)) {
+				if(dateFin.after(datejour)) {
 					listeMesVenteTerminer.add(liste.get(i));
 				}
 				
@@ -145,7 +146,7 @@ public class ListeEnchereBLL {
 		Date datejour = java.sql.Date.valueOf(aujourdhui);
 
 		try {
-			liste = listeEnchere.listeEnchere();
+			liste = listeEnchere.listeArticleVendu();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -155,7 +156,7 @@ public class ListeEnchereBLL {
 			Date dateDebut = liste.get(i).getDateDebut();
 			
 			if (liste.get(i).getVendeur().getPseudo().equals(pseudo)) {
-				if(datejour.before(dateDebut)) {
+				if(dateDebut.before(datejour)) {
 					listeMesVenteNonDebute.add(liste.get(i));
 				}
 				
@@ -170,7 +171,7 @@ public class ListeEnchereBLL {
 		List<Article> listeMesVenteNonDebute = new ArrayList<Article>();
 
 		try {
-			liste = listeEnchere.listeEnchere();
+			liste = listeEnchere.listeArticleVendu();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -181,5 +182,27 @@ public class ListeEnchereBLL {
 			}
 		}
 		return listeMesVenteNonDebute;
+	}
+	
+	//liste mes enchere en cours
+	public List<Article> listeMesEnchereEnCours(String pseudo) {
+		List<Article> liste = new ArrayList<Article>();
+		List<Enchere> Enchere = new ArrayList<Enchere>();
+		List<Article> listeMesEnchereEnCours = new ArrayList<Article>();
+		Utilisateur u = new Utilisateur();
+
+		try {
+			liste = listeEnchere.listeArticleVendu();
+			Enchere = listeEnchere.listeEnchere();
+			u = listeEnchere.noUtilisateur(pseudo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		for (int i = 0;liste.size()>i;i++) {			
+			if (u.getNoUtilisateur() == Enchere.get(i).getEnchereur().getNoUtilisateur()) {
+				listeMesEnchereEnCours.add(liste.get(i));
+			}
+		}
+		return listeMesEnchereEnCours;
 	}
 }

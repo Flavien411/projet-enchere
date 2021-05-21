@@ -58,18 +58,36 @@ public class ServletListeEnchere extends HttpServlet {
 				liste = b.listeEnchere();
 
 			}else if (!request.getParameter("categorie").equals("tous") ) {
+				
 				liste = b.listeCategorie(request.getParameter("categorie"));
 				
 			}else if(!request.getParameter("recherche").equals(null)) {
+				
 				liste = b.listeNomArticle(request.getParameter("recherche"));
-			}else if(request.getParameter("venteEnCours").equals(true)) {
+				
+			}else if(request.getParameter("mesVente").equals("venteEnCours")) {
+				
 				liste = b.listeMesVenteEnCours(pseudo);
-			}else if(request.getParameter("venteNonDebute").equals(true)) {
+				
+			}else if(request.getParameter("mesVente").equals("venteNonDebute")) {
+				
 				liste = b.listeMesVenteNonDebute(pseudo);
-			}else if(request.getParameter("venteRemporte").equals(true)) {
+				
+			}else if(request.getParameter("achat").equals("venteRemporte")) {
+				
 				liste = b.listeMesVenteRemporte(pseudo);
-			}else if(request.getParameter("venteTerminer").equals(true)) {
+				
+			}else if(request.getParameter("mesVente").equals("venteTerminer")) {
+				
 				liste = b.listeMesVenteTerminer(pseudo);
+				
+			}else if(request.getParameter("achat").equals("enchereEnCours")) {
+				
+				liste = b.listeMesEnchereEnCours(pseudo);
+			}else if (request.getParameter("achat").equals("enchereOuverte")) {
+				
+				liste = b.listeEnchere();
+
 			}
 		}	
 

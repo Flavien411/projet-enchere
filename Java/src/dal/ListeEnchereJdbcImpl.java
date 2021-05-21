@@ -9,17 +9,21 @@ import java.util.List;
 
 import bo.Article;
 import bo.Categorie;
+import bo.Enchere;
 import bo.Utilisateur;
 import connectionBDD.JdbcTools;
 
 public class ListeEnchereJdbcImpl implements ListeEnchere {
 	
 	private static final String SELECT_ListeEnchere = "SELECT * FROM ARTICLE_VENDU";	
-	private static final String SELECT_PseudoVendeur = "SELECT no_utilisateur,pseudo FROM UTILISATEUR WHERE no_utilisateur = ?";
+	private static final String SELECT_PseudoUtilisateur = "SELECT no_utilisateur,pseudo FROM UTILISATEUR WHERE no_utilisateur = ?";
+	private static final String SELECT_NoUtilisateur = "SELECT no_utilisateur FROM UTILISATEUR WHERE pseudo = ?";
 	private static final String SELECT_libelleCategorie = "SELECT no_categorie,libelle FROM Categorie WHERE no_categorie = ?";
+	private static final String SELECT_Enchere = "SELECT * FROM ENCHERE WHERE no_utilisateur = ?";
 
 
-	public List<Article> listeEnchere() throws SQLException {
+
+	public List<Article> listeArticleVendu() throws SQLException {
 		
 		List<Article> liste = new ArrayList<Article>();
 		
@@ -36,7 +40,8 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 			Article a = new Article();
 			Categorie c = new Categorie();
 			Utilisateur u = new Utilisateur();
-
+			
+			a.setNoArticle(rs.getInt("no_article"));;
 			a.setNomArticle(rs.getString("nom_article"));
 			a.setMiseAPrix(rs.getInt("mise_a_prix"));
 			a.setDateFin(rs.getDate("date_fin_encheres"));
@@ -63,7 +68,7 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 		Connection uneConnectionUtilisateur = null;
 		uneConnectionUtilisateur = JdbcTools.getConnection();
 		
-		PreparedStatement pstmt = uneConnectionUtilisateur.prepareStatement(SELECT_PseudoVendeur);
+		PreparedStatement pstmt = uneConnectionUtilisateur.prepareStatement(SELECT_PseudoUtilisateur);
 		pstmt.setInt(1,noUtilisateur);
 		rs = pstmt.executeQuery();
 		rs.next();
@@ -94,5 +99,59 @@ public class ListeEnchereJdbcImpl implements ListeEnchere {
 		uneConnectionCategorie.close();
 		
 		return c;
+	}
+	
+	public Utilisateur noUtilisateur(String pseudo) throws SQLException {
+		ResultSet rs = null;
+		Utilisateur u = new Utilisateur();
+		
+		//connection à la BDD
+		Connection uneConnectionUtilisateur = null;
+		uneConnectionUtilisateur = JdbcTools.getConnection();
+		
+		PreparedStatement pstmt = uneConnectionUtilisateur.prepareStatement(SELECT_NoUtilisateur);
+		pstmt.setString(1,pseudo);
+		rs = pstmt.executeQuery();
+		rs.next();
+		u.setNoUtilisateur(rs.getInt("no_utilisateur"));
+		
+		//Fermeture de la connexion
+		uneConnectionUtilisateur.close();
+		
+		return u;
+	}
+	
+	//
+	public List<Enchere> listeEnchere() throws SQLException {
+		
+		List<Enchere> listeEnchere = new ArrayList<Enchere>();
+		
+		//connection à la BDD
+		Connection uneConnectionEnchere = null;
+		uneConnectionEnchere = JdbcTools.getConnection();
+		
+		//Requette à la BDD
+		PreparedStatement pstmt =  uneConnectionEnchere.prepareStatement(SELECT_Enchere);
+		
+		//Recuperation des données recupérer
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			Enchere e = new Enchere();
+			Utilisateur u = new Utilisateur();
+			Article a = new Article();
+
+			e.setDateEnchere(rs.getDate("date_enchere"));
+			e.setMontantEnchere(rs.getInt("montant_enchere"));
+			u.setNoUtilisateur(rs.getInt("no_utilisateur"));
+			e.setEnchereur(u);
+			a.setNoArticle(rs.getInt("no_article"));
+			e.setArticleEncherie(a);
+			listeEnchere.add(e);
+		}
+		
+		//Fermeture de la connexion
+		uneConnectionEnchere.close();
+		return listeEnchere;		
+		
 	}
 }

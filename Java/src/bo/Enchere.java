@@ -6,6 +6,8 @@ public class Enchere {
 	
 	private Date dateEnchere;
 	private int montantEnchere;
+	private Utilisateur Enchereur;
+	private Article ArticleEncherie;
 	
 	//Constructeur
 	public Enchere(Date dateEnchere, int montantEnchere) {
@@ -31,5 +33,21 @@ public class Enchere {
 
 	public void setMontantEnchere(int montantEnchere) {
 		this.montantEnchere = montantEnchere;
+	}
+
+	public Utilisateur getEnchereur() {
+		return Enchereur;
+	}
+
+	public void setEnchereur(Utilisateur enchereur) {
+		Enchereur = enchereur;
+	}
+
+	public Article getArticleEncherie() {
+		return ArticleEncherie;
+	}
+
+	public void setArticleEncherie(Article articleEncherie) {
+		ArticleEncherie = articleEncherie;
 	}	
 }
