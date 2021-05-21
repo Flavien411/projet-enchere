@@ -2,13 +2,20 @@ import React, {Component} from 'react';
 import {MenuItems} from "./MenuItems";
 import './Navbar.css';
 import {Button} from "../buttons/Button";
+import LogiqueModal from "../modal/LogiqueModal";
+import Modal from '../modal/Modal';
+
+
 
 class Navbar extends Component {
     state = {clicked : false}
     handleClick = () =>{
         this.setState({clicked: !this.state.clicked})
     }
+
     render() {
+
+        const {revele, toggle} = LogiqueModal();
         return(
             <nav className="NavbarItems">
                 <h1 className="navbar-logo">
@@ -28,7 +35,10 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <Button>Connexion</Button>
+                <Button onClick={toggle}>Connexion</Button>
+                <Modal revele={revele}
+                       cache={toggle}
+                />
             </nav>
         )
     }
