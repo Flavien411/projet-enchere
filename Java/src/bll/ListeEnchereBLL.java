@@ -37,7 +37,7 @@ public class ListeEnchereBLL {
 
 			Date dateDebut = liste.get(i).getDateDebut();
 			
-			if (datejour.after(dateDebut)) {
+			if (datejour.before(dateDebut)) {
 				listeEnCours.add(liste.get(i));
 			}
 		}

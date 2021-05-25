@@ -2,7 +2,7 @@ package bo;
 
 public class Retrait {
 	private String rueRetrait,villeRetrait;
-	private int codePostalRetrait;
+	private int codePostalRetrait,noArticle;
 	
 	//Constructeur
 	public Retrait(String rueRetrait, int codePostalRetrait, String villeRetrait) {
@@ -38,6 +38,14 @@ public class Retrait {
 	
 	public void setCodePostalRetrait(int codePostalRetrait) {
 		this.codePostalRetrait = codePostalRetrait;
+	}
+
+	public int getNoArticle() {
+		return noArticle;
+	}
+
+	public void setNoArticle(int noArticle) {
+		this.noArticle = noArticle;
 	}
 	
 	

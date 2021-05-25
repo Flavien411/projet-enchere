@@ -1,8 +1,11 @@
+package dal;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import Java.src.connectionBDD.JdbcTools;
+import connectionBDD.JdbcTools;
+import bo.Utilisateur;
 
 public class DALSupprimerMonCompte {
 	
@@ -15,14 +18,14 @@ public class DALSupprimerMonCompte {
 	
 	
 	
-	public boolean supprimerCompte(Utilisateur utilisateur) {
+	public boolean supprimerCompte(Utilisateur utilisateur) throws SQLException {
 		Connection connection = JdbcTools.getConnection();
 		
 		try {
 			
 			Statement statement = connection.createStatement();
 			
-			String delete = "DELETE FROM utilisateur WHERE no_utilisateur = " + String.valueOf(utilisateur.getNoUtilisateur());
+			String delete = "DELETE FROM utilisateur WHERE pseudo = " + String.valueOf(utilisateur.getPseudo());
 			
 			int i = statement.executeUpdate(delete);
 			

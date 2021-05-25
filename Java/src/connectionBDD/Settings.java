@@ -5,10 +5,7 @@ package connectionBDD;
 
 import java.util.Properties;
 
-/**
- * @author Eni Ecole
- *
- */
+
 public class Settings {
 	private static Properties properties;
 	

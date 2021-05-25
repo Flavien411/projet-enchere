@@ -7,7 +7,9 @@ import java.util.List;
 import bo.Utilisateur;
 import dal.GestionUtilisateur;
 import dal.DAOFactory;
-
+/**
+ * @author Florian MOLINIER
+ */
 public class GestionUtilisateurBLL {
 	
 	private GestionUtilisateur gestionUtilisateur ;
