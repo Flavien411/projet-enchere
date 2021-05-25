@@ -22,7 +22,6 @@ public class GestionUtilisateurBLL {
 	//Methode gerant la connection d'un utilisateur
 	public Utilisateur Connection(String login,String motDePasse) {
 		
-		//TEMPORAIRE TODO: recupérer les info de l'interface graphique
 		Utilisateur utilisateur = new Utilisateur();
 		Utilisateur connection = new Utilisateur();
 		connection.setMotDePasse(motDePasse);
@@ -79,8 +78,6 @@ public class GestionUtilisateurBLL {
 		String pseudoEntrer = inscrit.getPseudo();
 		String emailEntrer = inscrit.getEmail();
 		Boolean verif = false;
-		//TODO : String mdp,confirmation
-		//TODO verif motdepasse == confirmation mots de passe
 		
 		//vefication si le pseudo ou l'email existe deja
 		for (int i =0; i< liste.size(); i++) {

@@ -8,8 +8,9 @@ import bo.Enchere;
 import bo.Utilisateur;
 
 public interface ListeEnchere {
-	public List<Article> listeArticleVendu() throws SQLException;
-	public List<Enchere> listeEnchere() throws SQLException;
+	public List<Article> listeArticleVendu(String etatVente) throws SQLException;
+	public List<Enchere> listeEnchere(String pseudo) throws SQLException;
 	public Utilisateur noUtilisateur(String pseudo) throws SQLException;
+	public List<Article> listeEnchereRemporter(String etatVente,String pseudoAcheteur) throws SQLException;
 
 }

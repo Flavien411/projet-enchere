@@ -47,6 +47,12 @@ public class Retrait {
 	public void setNoArticle(int noArticle) {
 		this.noArticle = noArticle;
 	}
+
+	@Override
+	public String toString() {
+		return "Retrait [rueRetrait=" + rueRetrait + ", villeRetrait=" + villeRetrait + ", codePostalRetrait="
+				+ codePostalRetrait + ", noArticle=" + noArticle + "]";
+	}
 	
 	
 }

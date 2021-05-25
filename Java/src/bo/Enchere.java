@@ -49,5 +49,12 @@ public class Enchere {
 
 	public void setArticleEncherie(Article articleEncherie) {
 		ArticleEncherie = articleEncherie;
+	}
+
+	@Override
+	public String toString() {
+		return "Enchere [dateEnchere=" + dateEnchere + ", montantEnchere=" + montantEnchere + ", Enchereur=" + Enchereur
+				+ ", ArticleEncherie=" + ArticleEncherie + "]";
 	}	
+	
 }

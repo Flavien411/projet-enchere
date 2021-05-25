@@ -1,7 +1,5 @@
 package bll;
 
-import java.sql.SQLException;
-
 import bo.Article;
 import dal.DAOFactory;
 import dal.DetailVenteDAO;

@@ -13,10 +13,6 @@ public class DAOFactory {
 		return new DetailVenteDAOJdbcImpl();
 	}
 	
-	public static AccueilDAO getAcceuilDAO() {
-		return new AccueilDAOJdbcImpl();
-	}
-	
 	public static ListeEnchere getListeEncherDAO() {
 		return new ListeEnchereJdbcImpl();
 	}

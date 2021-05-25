@@ -125,6 +125,14 @@ public class Utilisateur {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+
+	@Override
+	public String toString() {
+		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", codePostal=" + codePostal + ", credit=" + credit
+				+ ", pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", rue=" + rue
+				+ ", ville=" + ville + ", motDePasse=" + motDePasse + ", telephone=" + telephone + ", administrateur="
+				+ administrateur + "]";
+	}
 	
 	
 	

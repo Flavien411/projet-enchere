@@ -1,13 +1,10 @@
 package bll;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
 import bo.Article;
-import bo.Categorie;
 import bo.Retrait;
 import dal.DAOFactory;
 import dal.NouvelleVenteDAO;

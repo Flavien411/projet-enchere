@@ -5,13 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
-
 import bo.Article;
-import bo.Categorie;
 import bo.Retrait;
-import bo.Utilisateur;
 import connectionBDD.JdbcTools;
 
 public class NouvelleVenteDAOJdbcImpl implements NouvelleVenteDAO {

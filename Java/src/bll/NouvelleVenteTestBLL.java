@@ -1,11 +1,6 @@
 package bll;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import bo.Article;
-import bo.Retrait;
 
 public class NouvelleVenteTestBLL {
 	public static void main(String[] args) {

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Article {
 
+
 	private int noArticle, miseAPrix, prixVente;
 	private String nomArticle, description, etatVente;
 	private Date dateDebut, dateFin;
@@ -129,6 +130,14 @@ public class Article {
 
 	public void setAcheteur(Utilisateur acheteur) {
 		this.acheteur = acheteur;
+	}
+	
+	@Override
+	public String toString() {
+		return "Article [noArticle=" + noArticle + ", miseAPrix=" + miseAPrix + ", prixVente=" + prixVente
+				+ ", nomArticle=" + nomArticle + ", description=" + description + ", etatVente=" + etatVente
+				+ ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", categorie=" + categorie + ", acheteur="
+				+ acheteur + ", vendeur=" + vendeur + "]";
 	}
 
 }
